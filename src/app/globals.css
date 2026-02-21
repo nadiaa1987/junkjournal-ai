@@ -11,7 +11,7 @@
   --border-sepia: #dcd0bc;
   --radius-sm: 4px;
   --radius-md: 8px;
-  --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 8px 24px rgba(61, 59, 56, 0.08);
 }
 
@@ -23,7 +23,7 @@
 
 body {
   background-color: var(--bg-base);
-  background-image: 
+  background-image:
     linear-gradient(rgba(247, 243, 232, 0.9), rgba(247, 243, 232, 0.9)),
     url('https://www.transparenttextures.com/patterns/natural-paper.png');
   color: var(--text-primary);
@@ -32,7 +32,10 @@ body {
   min-height: 100vh;
 }
 
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
   font-family: 'Playfair Display', serif;
   font-weight: 700;
   color: var(--accent-sepia);
@@ -85,7 +88,7 @@ h1, h2, h3, h4 {
 .btn:hover {
   background: var(--accent-ink);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .btn-secondary {
@@ -141,27 +144,97 @@ h1, h2, h3, h4 {
   color: var(--accent-gold);
 }
 
-.hero {
+/* Dashboard Header Styling */
+.dashboard-header {
   text-align: center;
-  margin-bottom: 4rem;
+  padding: 4rem 1rem 5rem;
+  position: relative;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.4) 0%, transparent 70%);
+  border-bottom: 1px solid var(--border-sepia);
+  margin-bottom: 5rem;
+  border-radius: 0 0 40px 40px;
 }
 
-.hero h1 {
-  font-size: 3.5rem;
-  margin-bottom: 1rem;
+.header-badge {
+  display: inline-block;
+  background: #fdfbf7;
+  border: 1px solid var(--border-sepia);
+  color: var(--accent-sepia);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow-sm);
 }
 
-.hero p {
+.header-title {
+  font-size: 4rem;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+@media (max-width: 768px) {
+  .header-title {
+    font-size: 2.5rem;
+  }
+}
+
+.header-title .handwritten {
+  font-size: 1.1em;
+  display: inline-block;
+  transform: rotate(-3deg);
+  margin-left: 0.2em;
+  color: var(--accent-sepia);
+  background: linear-gradient(transparent 70%, #f0ede4 70%);
+}
+
+.header-subtitle {
   font-size: 1.25rem;
   color: var(--text-secondary);
-  max-width: 600px;
+  max-width: 650px;
   margin: 0 auto;
+  font-weight: 400;
+  line-height: 1.7;
 }
+
+.header-accent {
+  width: 80px;
+  height: 4px;
+  background: var(--accent-sepia);
+  margin: 2.5rem auto 0;
+  border-radius: 2px;
+  opacity: 0.3;
+}
+
 
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 2rem;
+}
+
+/* 4-column grid for generated image cards */
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 900px) {
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 500px) {
+  .grid-4 {
+    grid-template-columns: 1fr;
+  }
 }
 
 .footer {
@@ -175,10 +248,72 @@ h1, h2, h3, h4 {
 
 /* Animations */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .fade-in {
   animation: fadeIn 0.8s ease-out forwards;
+}
+
+/* Modals */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1001;
+  backdrop-filter: blur(4px);
+}
+
+.modal {
+  background: var(--bg-paper);
+  padding: 2rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  z-index: 1002;
+  border: 1px solid var(--border-sepia);
+}
+
+/* Image Card Hover Actions */
+.image-card-hover-action {
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.image-card-container:hover .image-card-hover-action {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Corner download specifically */
+.corner-download:hover {
+  transform: scale(1.1);
+  background: #fff !important;
 }
