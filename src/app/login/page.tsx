@@ -1,6 +1,6 @@
+"use client";
 export const runtime = 'edge';
 
-"use client";
 import React, { useState, useEffect } from 'react';
 import { auth, googleProvider } from '../../lib/firebase';
 import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
